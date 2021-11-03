@@ -1,3 +1,3 @@
 # sample_workflow
 
-trigger a deployment 1
+trigger a deployment 2
