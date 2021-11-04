@@ -1,0 +1,11 @@
+on:
+  deployment_status
+    types:[success]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run a one-line script
+        run: echo run test
