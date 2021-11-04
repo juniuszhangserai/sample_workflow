@@ -1,6 +1,5 @@
 on:
   deployment_status
-    types:[success]
 
 jobs:
   test:
