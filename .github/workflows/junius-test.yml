@@ -9,10 +9,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: test
-
     steps:
       - uses: actions/checkout@v2
 
       - name: Run a one-line script
         run: echo Hello from junius
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: avakar/create-deployment@v1
+        with:
+          auto_merge: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+        environment:
+          test
