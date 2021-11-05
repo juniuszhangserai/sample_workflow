@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy
     steps:
-      - uses: James-LeHa/Get_Deployment_ID@1.5
+      - uses: juniuszhangserai/getDeploymentById
         name: getDeploymentId
         with:
           env-name: "test"
