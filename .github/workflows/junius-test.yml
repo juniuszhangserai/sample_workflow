@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy
     steps:
-      - uses: action/Get_Deployment_ID@v1.5
+      - uses: action/Get_Deployment_ID@1.5
         name: getDeploymentId
         with:
           env-name: "test"
