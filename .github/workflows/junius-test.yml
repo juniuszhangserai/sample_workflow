@@ -33,6 +33,5 @@ jobs:
         with:
           env-name: "test"
           github-token: "${{ secrets.DEPLOY_TOKEN }}"
-          ref-to-search: "${{ github.sha }}"
       - name: 'Echo download path'
         run: echo ${{steps.getDeploymentId.outputs.deployment_id}}
