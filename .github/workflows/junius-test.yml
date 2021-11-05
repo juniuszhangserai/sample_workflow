@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: juniuszhangserai/getDeploymentById@releases/v1
+      - uses: juniuszhangserai/getDeploymentById@v1
         name: getDeploymentId
         with:
           environment: test
