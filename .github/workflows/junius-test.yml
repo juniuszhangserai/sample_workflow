@@ -31,9 +31,9 @@ jobs:
       - uses: juniuszhangserai/getDeploymentById@v2.5
         name: getDeploymentId
         with:
-          environment: test
-          github_token: ${{ secrets.DEPLOY_TOKEN }}
-          github_sha: ${{ github.sha }}
+          environment: "test"
+          github_token: "${{ secrets.DEPLOY_TOKEN }}"
+          github_sha: "${{ github.sha }}"
           owner: "juniuszhangserai"
           repo: "getDeploymentById"
       - name: 'Echo download path'
