@@ -31,8 +31,8 @@ jobs:
       - uses: juniuszhangserai/getDeploymentById@main
         name: getDeploymentId
         with:
-          env-name: "test"
-          github-token: "${{ secrets.DEPLOY_TOKEN }}"
-          ref-to-search: "${{ github.sha }}"
+          env-name: test
+          github-token: ${{ secrets.DEPLOY_TOKEN }}
+          ref-to-search: $GITHUB_SHA
       - name: 'Echo download path'
         run: echo ${{steps.getDeploymentId.outputs.deployment_id}}
