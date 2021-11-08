@@ -30,6 +30,7 @@ jobs:
     steps:
       - uses: juniuszhangserai/getDeploymentById@main
         name: getDeploymentId
+        id: getDeploymentId
         with:
           env-name: test
           github-token: ${{ secrets.DEPLOY_TOKEN }}
