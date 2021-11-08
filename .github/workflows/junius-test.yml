@@ -34,4 +34,4 @@ jobs:
           env-name: "test"
           github-token: "${{ secrets.DEPLOY_TOKEN }}"
       - name: 'Echo download path'
-        run: echo ${{steps.getDeploymentId.outputs.deployment_id}}
+        run: echo ${{steps.getDeploymentId.outputs.deploymentId}}
