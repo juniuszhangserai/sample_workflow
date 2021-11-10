@@ -17,9 +17,9 @@ jobs:
 
       - name: Run a one-line script
         run: echo Hello from ${{ github.ref }}
-        
+
       - name: Set env to dev
-        if: (github.event_name	!= 'pull_request' && github.ref == 'refs/heads/main') || (github.event_name	== 'pull_request' && github.base_ref == 'refs/heads/main') 
+        if: (github.event_name	!= 'pull_request' && github.ref == 'refs/heads/main') || (github.event_name	== 'pull_request' && github.base_ref == 'main') 
         run: echo "CI_ENVIRONMENT_NAME=dev" >> $GITHUB_ENV
 
       - name: Run a one-line script
