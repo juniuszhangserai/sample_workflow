@@ -6,6 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.deployment_status.state == 'success'
     steps:
+      - name: Run a one-line script
+        run: env
       - uses: actions/checkout@v2
       - name: Run a one-line script
         run: echo run test
