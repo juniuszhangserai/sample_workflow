@@ -10,20 +10,21 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{ inputs.only_deploy }}
+    if: ${{ inputs.only_deploy == false }}
     steps:
-      - run: echo "build"
+      - run: echo "build  ${{ inputs.only_deploy }}"
 
   test:
     runs-on: ubuntu-latest
-    if: ${{ inputs.only_deploy }}
+    if: ${{ inputs.only_deploy == false }}
     needs: build
 
     steps:
-      - run: echo "build ${{ inputs.only_deploy }}"
+      - run: echo "build"
 
   deploy:
     runs-on: ubuntu-latest
+    if: ${{ always() }}
     needs: [build, test]
 
     steps:
