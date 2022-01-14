@@ -8,8 +8,14 @@ on:
         type: boolean
         default: false 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "build ${{github.event.input.only_deploy}}"
+
   build:
     runs-on: ubuntu-latest
+    needs: check
     if: ${{ github.event.input.only_deploy == 'false' }}
     steps:
       - run: echo "build"
