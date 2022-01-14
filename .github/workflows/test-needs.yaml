@@ -11,18 +11,18 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "build ${{inputs.only_deploy}}"
+      - run: echo "build ${{github.event.inputs.only_deploy}}"
 
   build:
     runs-on: ubuntu-latest
     needs: check
-    if: inputs.only_deploy == false
+    if: github.event.inputs.only_deploy == false
     steps:
       - run: echo "build"
 
   test:
     runs-on: ubuntu-latest
-    if: inputs.only_deploy == false
+    if: github.event.inputs.only_deploy == false
     needs: build
 
     steps:
