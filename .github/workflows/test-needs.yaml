@@ -1,14 +1,22 @@
+name: needs test
+
 on:
   workflow_dispatch
-
+    inputs:
+      only_deploy:
+        equired: true
+        type: boolean
+        default: false 
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: ${{ inputs.target_env == false }}
     steps:
       - run: echo "build"
 
   test:
     runs-on: ubuntu-latest
+    if: ${{ inputs.target_env == false }}
     needs: build
 
     steps:
