@@ -1,7 +1,7 @@
 name: needs test
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
     inputs:
       only_deploy:
         equired: true
