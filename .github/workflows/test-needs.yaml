@@ -5,18 +5,17 @@ on:
     inputs:
       only_deploy:
         required: true
-        type: boolean
-        default: false 
+        default: 'false'
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: inputs.only_deploy == false
+    if: inputs.only_deploy == 'false'
     steps:
       - run: echo "build"
 
   test:
     runs-on: ubuntu-latest
-    if: inputs.only_deploy == false
+    if: inputs.only_deploy == 'false'
     needs: build
 
     steps:
