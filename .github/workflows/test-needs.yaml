@@ -5,7 +5,8 @@ on:
     inputs:
       only_deploy:
         required: true
-        default: 'false'
+        type: boolean
+        default: false 
 jobs:
   build:
     runs-on: ubuntu-latest
