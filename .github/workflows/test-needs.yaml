@@ -18,7 +18,7 @@ jobs:
     needs: check
     if: github.event.inputs.only_deploy == 'false'
     steps:
-      - run: e1cho "build"
+      - run: echo "build"
 
   test:
     runs-on: ubuntu-latest
