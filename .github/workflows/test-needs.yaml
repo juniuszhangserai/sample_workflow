@@ -16,7 +16,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: check
-    if: github.event.inputs.only_deploy == 'true'
+    if: github.event.inputs.only_deploy == 'false'
     steps:
       - run: echo "build"
 
@@ -30,7 +30,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event.inputs.only_deploy == 'true' }}
+    if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
     needs: [test]
 
     steps:
