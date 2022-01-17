@@ -30,8 +30,8 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: github.event.inputs.only_deploy == 'true'
-    needs: [build, test]
+    if: github.event.inputs.only_deploy != 'false'
+    needs: [test]
 
     steps:
       - run: echo "deploy"
