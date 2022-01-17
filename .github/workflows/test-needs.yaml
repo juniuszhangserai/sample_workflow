@@ -30,7 +30,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: 'false' == 'false'
+    if: github.event.inputs.only_deploy == 'true'
     needs: [test]
 
     steps:
