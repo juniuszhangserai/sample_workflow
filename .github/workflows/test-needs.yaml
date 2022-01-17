@@ -19,8 +19,7 @@ jobs:
     if: github.event.inputs.only_deploy == 'false'
     steps:
       - run: |
-        echo "build"
-        exit 1
+        e1cho "build"
 
   test:
     runs-on: ubuntu-latest
