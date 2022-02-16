@@ -8,12 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: |
-          git clone https://github.com/stedolan/jq.git
-          cd jq
-          autoreconf -i
-          ./configure --disable-maintainer-mode
-          make
-          sudo make install
+          sudo apt-get update
+          sudo apt-get install jq
       - run: |
           jq -c '.[]|select(.status=="created")' scan_result.json | while read i; do
             MyScanID=`echo $i | jq -r .scan`
