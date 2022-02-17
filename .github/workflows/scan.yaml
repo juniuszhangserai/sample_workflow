@@ -32,7 +32,7 @@ jobs:
           commit="1111111111111"
           MyScanID="2222222222"
           time=$(date "+%Y-%m-%d %H:%M:%S")
-          echo $(jq '. + [{"commit": "${{github.event.deployment.sha}}", "scan": "$MyScanID", "status": "in-progress", "result": "","create_time":"$time"}]' ./scan_result.json) > ./scan_result.json
+          echo $(jq --arg MyScanID "$MyScanID" --arg time "$time" '. + [{"commit": "${{github.event.deployment.sha}}", "scan": "$MyScanID", "status": "in-progress", "result": "","create_time":"$time"}]' ./scan_result.json) > ./scan_result.json
           cat scan_result.json
 
 
