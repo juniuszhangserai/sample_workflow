@@ -25,8 +25,8 @@ jobs:
               MyScanResultID=`curl -sS -k -X GET "https://online.acunetix.com/api/v1/scans/$MyScanID/results" -H "Accept: application/json" -H "X-Auth: 1578e47d919de40faa25e0bade237e7f268cd1c02393bb2b7594d71706cc2a466" | jq -r '.results[0].result_id'`
               MyScanVulnerabilities=`curl -sS -k -X GET "https://online.acunetix.com/api/v1/scans/{$MyScanID}/results/{$MyScanResultID}/vulnerabilities" -H "Accept: application/json" -H "X-Auth: 1578e47d919de40faa25e0bade237e7f268cd1c02393bb2b7594d71706cc2a466" | jq '.|tojson'`
               echo $MyScanVulnerabilities
-              echo "$(jq --arg MyScanID "$MyScanID" --argjson MyScanVulnerabilities $MyScanVulnerabilities '(.[]|select(.scan==$MyScanID)| .status) |= "completed"' scan_result.json)" > scan_result.json
-              echo "$(jq --arg MyScanID "$MyScanID" --argjson MyScanVulnerabilities $MyScanVulnerabilities '(.[]|select(.scan==$MyScanID)| .result) |= $MyScanVulnerabilities' scan_result.json)" > scan_result.json
+              echo "$(jq --arg MyScanID "${{MyScanID}}" --argjson MyScanVulnerabilities ${{MyScanVulnerabilities}} '(.[]|select(.scan==$MyScanID)| .status) |= "completed"' scan_result.json)" > scan_result.json
+              echo "$(jq --arg MyScanID "${{MyScanID}}" --argjson MyScanVulnerabilities ${{MyScanVulnerabilities}} '(.[]|select(.scan==$MyScanID)| .result) |= $MyScanVulnerabilities' scan_result.json)" > scan_result.json
             else
               echo "Invalid Scan Status: Aborting"
               exit 1
