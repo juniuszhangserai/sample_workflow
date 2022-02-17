@@ -27,6 +27,7 @@ jobs:
               echo $MyScanVulnerabilities
               echo "$(jq --arg MyScanID "$MyScanID" --argjson MyScanVulnerabilities "$MyScanVulnerabilities" '(.[]|select(.scan==$MyScanID)| .status) |= "completed"' scan_result.json)" > scan_result.json
               echo "$(jq --arg MyScanID "$MyScanID" --argjson MyScanVulnerabilities "$MyScanVulnerabilities" '(.[]|select(.scan==$MyScanID)| .result) |= $MyScanVulnerabilities' scan_result.json)" > scan_result.json
+              cat scan_result.json
             else
               echo "Invalid Scan Status: Aborting"
               exit 1
