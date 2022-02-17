@@ -1,4 +1,4 @@
-name: scan test
+name: needs test
 
 on:
   workflow_dispatch:
@@ -11,28 +11,32 @@ jobs:
           sudo apt-get update
           sudo apt-get install jq
       - run: |
-          jq -c '.[]|select(.status=="in-progress")' scan_result.json | while read i; do
-            MyScanID=`echo $i | jq -r .scan`
-            MyScanStatus=`curl -sS -k -X GET "https://online.acunetix.com/api/v1/scans/{$MyScanID}" -H "Accept: application/json" -H "X-Auth: 1578e47d919de40faa25e0bade237e7f268cd1c02393bb2b7594d71706cc2a466"`
-            # echo $MyScanStatus
-            if [[ "$MyScanStatus" == *"\"status\": \"processing\""* ]]; then
-              echo "Scan Status: Processing - waiting 30 seconds"
-            elif [[ "$MyScanStatus" == *"\"status\": \"scheduled\""* ]]; then
-              echo "Scan Status: Scheduled - waiting 30 seconds"
-            elif [[ "$MyScanStatus" == *"\"status\": \"queued\""* ]]; then
-              echo "Scan Status: queued - waiting 30 seconds"
-            elif [[ "$MyScanStatus" == *"\"status\": \"completed\""* ]]; then
-              MyScanResultID=`curl -sS -k -X GET "https://online.acunetix.com/api/v1/scans/$MyScanID/results" -H "Accept: application/json" -H "X-Auth: 1578e47d919de40faa25e0bade237e7f268cd1c02393bb2b7594d71706cc2a466" | jq -r '.results[0].result_id'`
-              MyScanVulnerabilities=`curl -sS -k -X GET "https://online.acunetix.com/api/v1/scans/{$MyScanID}/results/{$MyScanResultID}/vulnerabilities" -H "Accept: application/json" -H "X-Auth: 1578e47d919de40faa25e0bade237e7f268cd1c02393bb2b7594d71706cc2a466" | jq -r .`
-              echo $MyScanVulnerabilities
-              echo "$(jq --arg MyScanID "$MyScanID" --argjson MyScanVulnerabilities "$MyScanVulnerabilities" '(.[]|select(.scan==$MyScanID)| .status) |= "completed"' scan_result.json)" > scan_result.json
-              echo "$(jq --arg MyScanID "$MyScanID" --argjson MyScanVulnerabilities "$MyScanVulnerabilities" '(.[]|select(.scan==$MyScanID)| .result) |= $MyScanVulnerabilities' scan_result.json)" > scan_result.json
-              cat scan_result.json
-            else
-              echo "Invalid Scan Status: Aborting"
-              exit 1
-            fi
-          done
+          # jq -c '.[]|select(.status=="in-progress")' scan_result.json | while read i; do
+          #   MyScanID=`echo $i | jq -r .scan`
+          #   MyScanStatus=`curl -sS -k -X GET "https://online.acunetix.com/api/v1/scans/{$MyScanID}" -H "Accept: application/json" -H "X-Auth: 1578e47d919de40faa25e0bade237e7f268cd1c02393bb2b7594d71706cc2a466"`
+          #   # echo $MyScanStatus
+          #   if [[ "$MyScanStatus" == *"\"status\": \"processing\""* ]]; then
+          #     echo "Scan Status: Processing - waiting 30 seconds"
+          #   elif [[ "$MyScanStatus" == *"\"status\": \"scheduled\""* ]]; then
+          #     echo "Scan Status: Scheduled - waiting 30 seconds"
+          #   elif [[ "$MyScanStatus" == *"\"status\": \"queued\""* ]]; then
+          #     echo "Scan Status: queued - waiting 30 seconds"
+          #   elif [[ "$MyScanStatus" == *"\"status\": \"completed\""* ]]; then
+          #     MyScanResultID=`curl -sS -k -X GET "https://online.acunetix.com/api/v1/scans/$MyScanID/results" -H "Accept: application/json" -H "X-Auth: 1578e47d919de40faa25e0bade237e7f268cd1c02393bb2b7594d71706cc2a466" | jq -r '.results[0].result_id'`
+          #     MyScanVulnerabilities=`curl -sS -k -X GET "https://online.acunetix.com/api/v1/scans/{$MyScanID}/results/{$MyScanResultID}/vulnerabilities" -H "Accept: application/json" -H "X-Auth: 1578e47d919de40faa25e0bade237e7f268cd1c02393bb2b7594d71706cc2a466"`
+          #     echo $MyScanVulnerabilities
+          #     echo "$(jq --arg MyScanID "$MyScanID" --argjson MyScanVulnerabilities $MyScanVulnerabilities '(.[]|select(.scan==$MyScanID)| .status) |= "completed"' scan_result.json)" > scan_result.json
+          #     echo "$(jq --arg MyScanID "$MyScanID" --argjson MyScanVulnerabilities $MyScanVulnerabilities '(.[]|select(.scan==$MyScanID)| .result) |= $MyScanVulnerabilities' scan_result.json)" > scan_result.json
+          #   else
+          #     echo "Invalid Scan Status: Aborting"
+          #     exit 1
+          #   fi
+          # done
+          commit="1111111111111"
+          MyScanID="2222222222"
+          time=$(date "+%Y-%m-%d %H:%M:%S")
+          echo $(jq '. + [{"commit": "${{github.event.deployment.sha}}", "scan": "$MyScanID", "status": "in-progress", "result": "","create_time":"$time"}]' ./scan_result.json) > ./scan_result.json
+
 
 
           
