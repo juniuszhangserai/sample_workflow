@@ -1,4 +1,4 @@
-name: needs test
+name: scan test
 
 on:
   workflow_dispatch:
@@ -7,9 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: |
-          sudo apt-get update
-          sudo apt-get install jq
       - run: |
           # jq -c '.[]|select(.status=="in-progress")' scan_result.json | while read i; do
           #   MyScanID=`echo $i | jq -r .scan`
@@ -36,6 +33,7 @@ jobs:
           MyScanID="2222222222"
           time=$(date "+%Y-%m-%d %H:%M:%S")
           echo $(jq '. + [{"commit": "${{github.event.deployment.sha}}", "scan": "$MyScanID", "status": "in-progress", "result": "","create_time":"$time"}]' ./scan_result.json) > ./scan_result.json
+          cat scan_result.json
 
 
 
