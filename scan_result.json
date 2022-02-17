@@ -62,7 +62,7 @@
   },
   {
     "commit": "2ca4be5bd470c4058b35a8ac3c678217462aed82",
-    "scan": "69e405d6-106e-441b-ada0-4f1fa14b31de",
+    "scan": "69e405d6-106e-441b-ada0-4f1fa14b31de2",
     "status": "completed",
     "result": {
       "vulnerabilities": [
@@ -120,5 +120,11 @@
         "sort": null
       }
     }
+  },
+  {
+    "commit": "2ca4be5bd470c4058b35a8ac3c678217462aed82",
+    "scan": "69e405d6-106e-441b-ada0-4f1fa14b31de",
+    "status": "in-progress",
+    "result": ""
   }
 ]
