@@ -10,6 +10,7 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
+    environment: uat
     steps:
       - run: echo "build ${{github.event.inputs.only_deploy}}"
 
@@ -22,6 +23,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    environment: uat
     if: github.event.inputs.only_deploy == 'false'
     needs: build
 
