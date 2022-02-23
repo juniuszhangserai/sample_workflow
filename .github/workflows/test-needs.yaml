@@ -30,7 +30,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
+    if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }} && !(contains(needs.*.result, 'cancel')) }}
     needs: [test]
 
     steps:
