@@ -32,7 +32,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: ${{  contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }} && !(contains(needs.*.result, 'cancelled')) }}
+    if: ${{  (github.event.inputs.only_deplo == 'true' && job.check.result == 'success') || ( github.event.inputs.only_deplo == 'false' contains(job.test.result, 'success') && !(contains(job.test.result, 'failure')) }} && !(contains(job.test.result, 'cancelled'))) }}
     needs: [check,test]
 
     steps:
