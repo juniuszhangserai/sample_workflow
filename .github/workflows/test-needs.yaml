@@ -32,7 +32,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: ${{always()}}
+    if: ${{  (github.event.inputs.only_deploy == 'true' && needs.check.result == 'success') || ( github.event.inputs.only_deplo == 'false' && needs.test.result=='success' }}
     needs: [check,test]
 
     steps:
