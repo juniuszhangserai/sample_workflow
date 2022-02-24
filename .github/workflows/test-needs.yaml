@@ -37,4 +37,8 @@ jobs:
 
     steps:
       - run: echo "deploy"
+      - run: echo ${{needs.check.result}}
+      - run: echo ${{needs.test.result}}
+      - run: echo ${{  (github.event.inputs.only_deplo == 'true' && needs.check.result == 'success' && needs.check.result!='failure' && needs.check.result!='cancelled' )}}
+      - run: echo ${{  (github.event.inputs.only_deplo == 'false' && needs.test.result=='success' && needs.test.result!='failure' && needs.test.result!='cancelled') }}
       - run: echo ${{  (github.event.inputs.only_deplo == 'true' && needs.check.result == 'success' && needs.check.result!='failure' && needs.check.result!='cancelled' ) || ( github.event.inputs.only_deplo == 'false' && needs.test.result=='success' && needs.test.result!='failure' && needs.test.result!='cancelled') }}
