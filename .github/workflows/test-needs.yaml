@@ -32,9 +32,9 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: ${{  (github.event.inputs.only_deplo == 'true' && needs.check.result == 'success' && needs.check.result!='failure' && needs.check.result!='cancelled' ) || ( github.event.inputs.only_deplo == 'false' && needs.test.result=='success' && needs.test.result!='failure' && needs.test.result!='cancelled') }}
+    # if: ${{  (github.event.inputs.only_deplo == 'true' && needs.check.result == 'success' && needs.check.result!='failure' && needs.check.result!='cancelled' ) || ( github.event.inputs.only_deplo == 'false' && needs.test.result=='success' && needs.test.result!='failure' && needs.test.result!='cancelled') }}
     needs: [check,test]
 
     steps:
       - run: echo "deploy"
-      - run: echo ${{job.test.status}}
+      - run: echo ${{  (github.event.inputs.only_deplo == 'true' && needs.check.result == 'success' && needs.check.result!='failure' && needs.check.result!='cancelled' ) || ( github.event.inputs.only_deplo == 'false' && needs.test.result=='success' && needs.test.result!='failure' && needs.test.result!='cancelled') }}
